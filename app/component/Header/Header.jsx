@@ -3,6 +3,7 @@ import { Home, List, MessageCircle } from "lucide-react";
 // import AuthContextProvider from '@/lib/contexts/AuthContext'
 import Link from "next/link";
 import LoginButton from "./LoginButton";
+import AuthContextProvider from "@/lib/contexts/AuthContexts";
 
 export default function Header() {
   return (
@@ -30,7 +31,9 @@ export default function Header() {
           </li>
         </Link>
       </ul>
-      <LoginButton />
+      <AuthContextProvider>
+        <LoginButton />
+      </AuthContextProvider>
     </nav>
   );
 }
