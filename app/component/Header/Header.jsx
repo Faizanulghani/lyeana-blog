@@ -2,6 +2,7 @@ import { Home, List, MessageCircle } from "lucide-react";
 // import LoginButton from './LoginButton'
 // import AuthContextProvider from '@/lib/contexts/AuthContext'
 import Link from "next/link";
+import LoginButton from "./LoginButton";
 
 export default function Header() {
   return (
@@ -29,10 +30,7 @@ export default function Header() {
           </li>
         </Link>
       </ul>
-      <button className="flex items-center gap-3 bg-black text-white px-4 py-2 rounded-full">
-        <img className="h-7" src="/google.png" alt="" />
-        Login With Google
-      </button>
+      <LoginButton />
     </nav>
   );
 }
