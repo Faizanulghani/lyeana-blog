@@ -1,20 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useCategoryForm } from "./contexts/CategoryFormContext";
-import { useEffect } from "react";
 
 const page = () => {
-  const searchParams = useSearchParams();
-  const updateCategoryId = searchParams.get("id");
   const { data, isLoading, error, isDone, handleData, handleCreate } =
     useCategoryForm();
-
-  useEffect(() => {
-    if (updateCategoryId) {
-      fetchData(updateCategoryId);
-    }
-  }, [updateCategoryId]);
 
   return (
     <main className="w-full p-6 flex flex-col gap-3">
@@ -51,7 +41,7 @@ const page = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label className="text-sm text-gray-500">
-              Category Slug <span className="text-red-500">*</span>{" "}
+              Category Slug <span className="text-red-500">*</span>
             </label>
             <input
               className="px-4 py-2 rounded-full border bg-gray-50"
@@ -79,7 +69,8 @@ const page = () => {
 
           {isDone && (
             <h3 className="text-green-500 font-bold text-center">
-              Successfully {updateCategoryId ? "Updated" : "Created"} !
+              
+              Successfully Created
             </h3>
           )}
         </form>

@@ -6,7 +6,6 @@ import Link from "next/link";
 const LoginButton = () => {
   const { user, isLoading, error, handleSignInWithGoogle, handleLogout } =
     useAuth();
-    console.log(user)
   if (isLoading) {
     return <p>Loading...</p>;
   }

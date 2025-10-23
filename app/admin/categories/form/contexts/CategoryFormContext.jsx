@@ -12,6 +12,7 @@ export default function CategoryFormContextProvider({ children }) {
   const [isDone, setIsDone] = useState(false);
 
   const handleData = (key, value) => {
+    setIsDone(false);
     setData({
       ...data,
       [key]: value,
