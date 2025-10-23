@@ -6,7 +6,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "../Firebase";
+import { auth } from "../firebase";
 
 const { createContext, useContext, useState, useEffect } = require("react");
 

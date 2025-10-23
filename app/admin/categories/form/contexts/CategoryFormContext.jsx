@@ -1,5 +1,6 @@
 "use client";
 
+import { createNewCategory } from "@/lib/firebase/category/write";
 import { createContext, useContext, useState } from "react";
 
 const CategoryFormContext = createContext();
@@ -9,7 +10,6 @@ export default function CategoryFormContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isDone, setIsDone] = useState(false);
-  const [image, setImage] = useState(null);
 
   const handleData = (key, value) => {
     setData({
@@ -23,6 +23,7 @@ export default function CategoryFormContextProvider({ children }) {
     setIsLoading(true);
     setIsDone(false);
     try {
+      await createNewCategory({ data });
       setIsDone(true);
     } catch (error) {
       setError(error);
@@ -32,7 +33,14 @@ export default function CategoryFormContextProvider({ children }) {
 
   return (
     <CategoryFormContext.Provider
-      value={{ data, isLoading, error, isDone, handleData, handleCreate, image, setImage }}
+      value={{
+        data,
+        isLoading,
+        error,
+        isDone,
+        handleData,
+        handleCreate,
+      }}
     >
       {children}
     </CategoryFormContext.Provider>
