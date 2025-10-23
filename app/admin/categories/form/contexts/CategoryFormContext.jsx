@@ -9,6 +9,7 @@ export default function CategoryFormContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isDone, setIsDone] = useState(false);
+  const [image, setImage] = useState(null);
 
   const handleData = (key, value) => {
     setData({
@@ -31,7 +32,7 @@ export default function CategoryFormContextProvider({ children }) {
 
   return (
     <CategoryFormContext.Provider
-      value={{ data, isLoading, error, isDone, handleData, handleCreate }}
+      value={{ data, isLoading, error, isDone, handleData, handleCreate, image, setImage }}
     >
       {children}
     </CategoryFormContext.Provider>

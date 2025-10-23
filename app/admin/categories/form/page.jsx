@@ -1,4 +1,19 @@
+"use client";
+
+import { useCategoryForm } from "./contexts/CategoryFormContext";
+
 const page = () => {
+  const {
+    data,
+    isLoading,
+    error,
+    isDone,
+    handleData,
+    handleCreate,
+    image,
+    setImage,
+  } = useCategoryForm();
+
   return (
     <main className="w-full p-6 flex flex-col gap-3">
       <div className="flex gap-5 items-center">
@@ -10,7 +25,13 @@ const page = () => {
         <h1 className="font-bold">Category | Form</h1>
       </div>
       <section className="flex">
-        <form className="flex flex-col gap-2 bg-blue-50 rounded-xl p-7">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleCreate();
+          }}
+          className="flex flex-col gap-2 bg-blue-50 rounded-xl p-7"
+        >
           <div className="flex flex-col gap-2">
             <label className="text-sm text-gray-500">
               Category Name <span className="text-red-500">*</span>{" "}
@@ -19,6 +40,10 @@ const page = () => {
               className="px-4 py-2 rounded-full border bg-gray-50"
               placeholder="Enter Category Name"
               type="text"
+              onChange={(e) => {
+                handleData("name", e.target.value);
+              }}
+              value={data?.name || ""}
               required
             />
           </div>
@@ -30,28 +55,35 @@ const page = () => {
               className="px-4 py-2 rounded-full border bg-gray-50"
               placeholder="Enter Category Slug"
               type="text"
+              onChange={(e) => {
+                handleData("slug", e.target.value);
+              }}
+              value={data?.slug || ""}
               required
             />
           </div>
-          <div>
-            <img className="h-40" src="" alt="" />
-          </div>
-          <div>
-            <img className="h-40" src="" alt="" />
-          </div>
+          {image && (
+            <div>
+              <img className="h-40" src={URL.createObjectURL(image)} />
+            </div>
+          )}
           <div className="flex flex-col gap-2">
             <label className="text-sm text-gray-500">Image </label>
             <input
               className="px-4 py-2 rounded-full border bg-gray-50"
               placeholder="Enter Category Slug"
               type="file"
+              onChange={(e) => {
+                e.preventDefault();
+                setImage(e.target.files[0]);
+              }}
               accept="image/*"
             />
           </div>
 
           <button
             type="submit"
-            className="bg-blue-500 rounded-full px-4 py-2 text-white"
+            className="bg-blue-500 rounded-full px-4 py-2 text-white cursor-pointer"
           >
             Create
           </button>
