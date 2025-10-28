@@ -1,12 +1,18 @@
 "use client";
 
 import { getCategory } from "@/lib/firebase/category/read";
-import { createNewCategory } from "@/lib/firebase/category/write";
+import {
+  createNewCategory,
+  deleteCategory,
+  updateCategory,
+} from "@/lib/firebase/category/write";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useState } from "react";
 
 const CategoryFormContext = createContext();
 
 export default function CategoryFormContextProvider({ children }) {
+  const router = useRouter();
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
