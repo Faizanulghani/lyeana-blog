@@ -1,5 +1,6 @@
 "use client";
 
+import { getCategory } from "@/lib/firebase/category/read";
 import { createNewCategory } from "@/lib/firebase/category/write";
 import { createContext, useContext, useState } from "react";
 
@@ -32,6 +33,50 @@ export default function CategoryFormContextProvider({ children }) {
     setIsLoading(false);
   };
 
+  const handleUpdate = async () => {
+    setError(null);
+    setIsLoading(true);
+    setIsDone(false);
+    try {
+      await updateCategory({ data: data });
+      setIsDone(true);
+    } catch (error) {
+      setError(error?.message);
+    }
+    setIsLoading(false);
+  };
+
+  const handleDelete = async (id) => {
+    setError(null);
+    setIsLoading(true);
+    setIsDone(false);
+    try {
+      await deleteCategory(id);
+      setIsDone(true);
+      router.push("/admin/categories");
+    } catch (error) {
+      setError(error?.message);
+    }
+    setIsLoading(false);
+  };
+
+  const fetchData = async (id) => {
+    setError(null);
+    setIsLoading(true);
+    setIsDone(false);
+    try {
+      const res = await getCategory(id);
+      if (res.exists()) {
+        setData(res.data());
+      } else {
+        throw new Error(`No Category found from id ${id}`);
+      }
+    } catch (error) {
+      setError(error?.message);
+    }
+    setIsLoading(false);
+  };
+
   return (
     <CategoryFormContext.Provider
       value={{
@@ -41,6 +86,9 @@ export default function CategoryFormContextProvider({ children }) {
         isDone,
         handleData,
         handleCreate,
+        handleUpdate,
+        handleDelete,
+        fetchData,
       }}
     >
       {children}
